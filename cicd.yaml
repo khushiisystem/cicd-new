@@ -1,0 +1,34 @@
+name: Node.js CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build Application
+        run: echo "Build step completed (for Node.js, may be optional)"
+
+      - name: Deploy to Local Folder
+        run: |
+          mkdir -p deployment
+          cp -r * deployment/
+          echo "Files deployed to local folder successfully!"
+
